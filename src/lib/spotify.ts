@@ -1,8 +1,8 @@
-import { SpotifyApi } from '@spotify/web-api-ts-sdk';
+import { SpotifyApi, type User } from '@spotify/web-api-ts-sdk';
 import { writable } from 'svelte/store';
 import { PUBLIC_SPOTIFY_CLIENT_ID } from '$env/static/public';
 
-export const isLoggedIn = writable(false);
+export const userDetails = writable<User|null>(null);
 
 let spotify: SpotifyApi = SpotifyApi.withUserAuthorization(
 	PUBLIC_SPOTIFY_CLIENT_ID,
@@ -11,11 +11,10 @@ let spotify: SpotifyApi = SpotifyApi.withUserAuthorization(
 
 export const userLogin = async () => {
 	const user = await spotify.currentUser.profile();
-	console.log(user);
-	isLoggedIn.set(true);
+    userDetails.set(user);
 };
 
 export const userLogout = async () => {
 	await spotify.logOut();
-	isLoggedIn.set(false);
+    userDetails.set(null);
 };
