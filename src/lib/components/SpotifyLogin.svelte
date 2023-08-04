@@ -3,15 +3,12 @@
 
 	let loggedIn = false;
 	userDetails.subscribe((value) => {
-		console.log('userDetails', value);
 		loggedIn = value !== null;
 	});
 	function login() {
-		console.log('userLogin');
 		userLogin();
 	}
 	function logout() {
-		console.log('userLogout');
 		userLogout();
 	}
 </script>
