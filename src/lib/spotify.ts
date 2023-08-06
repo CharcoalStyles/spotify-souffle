@@ -2,9 +2,9 @@ import {
 	SpotifyApi,
 	type User,
 	type Playlist,
-	type PlaylistedTrack,
 	type Page,
-	type Track
+	type Track,
+	type SimplifiedTrack
 } from '@spotify/web-api-ts-sdk';
 import { writable } from 'svelte/store';
 import { PUBLIC_SPOTIFY_CLIENT_ID } from '$env/static/public';
@@ -73,5 +73,27 @@ export const getPlaylistTracks = async (playlistId: string) => {
 	return tracks;
 };
 
-// export const swapPlaylistTracks = async (
-//     playlistId: string,
+export const swapTrack = async (track: SimplifiedTrack) => {
+	const albums = await spotify.artists.albums(track.artists[0].id, 'album,single', undefined, 49);
+	const { id: albumId } = albums.items[Math.floor(Math.random() * albums.items.length)];
+	const { items } = await spotify.albums.tracks(albumId);
+	return items[Math.floor(Math.random() * items.length)];
+};
+
+export const savePlaylist = async (
+	userId: string,
+	name: string,
+	tracks: Array<SimplifiedTrack>
+) => {
+	const playlist = await spotify.playlists.createPlaylist(userId, {
+		name,
+		description: 'Baked with love by Spotify Soufflé'
+	});
+
+	await spotify.playlists.addItemsToPlaylist(
+		playlist.id,
+		tracks.map((track) => track.uri)
+	);
+
+	return playlist;
+};

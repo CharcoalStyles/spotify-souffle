@@ -1,11 +1,12 @@
 <script>
 	import { subtitle, selectedPlaylist } from '$lib';
+	import SpotifyLogin from '$lib/components/SpotifyLogin.svelte';
 	import { userDetails } from '$lib/spotify';
 	import { onMount } from 'svelte';
 
 	onMount(() => {
 		subtitle.set('');
-    selectedPlaylist.set(null);
+		selectedPlaylist.set(null);
 	});
 	const pages = [
 		{
@@ -17,12 +18,15 @@
 </script>
 
 {#if $userDetails === null}
-	<p class="text-lg text-base-100">You will need to login to Spotify before continuing</p>
+	<div class="mt-10">
+		<p class="text-xl text-base-100 pb-8">You will need to login to Spotify before continuing</p>
+		<SpotifyLogin />
+	</div>
 {:else}
 	<p class="text-lg text-base-100">You are logged in as {$userDetails.display_name}</p>
 	<p class="text-lg text-base-100">How would you like to mix up your playlist?</p>
 
-	<div class="flex flex-wrap place-content-center ">
+	<div class="flex flex-wrap place-content-center">
 		{#each pages as { name, path, description }}
 			<div class="card w-64 bg-primary text-primary-content m-4">
 				<div class="card-body text-center">

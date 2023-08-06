@@ -1,0 +1,13 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "spotify-souffle-svelte": {
+      "appLocation": "./",
+      "apiLocation": "build/server",
+      "outputLocation": "build/static",
+      "appBuildCommand": "npm run build",
+      "run": "npm run dev",
+      "appDevserverUrl": "http://localhost:8080"
+    }
+  }
+}
