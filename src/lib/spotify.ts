@@ -7,13 +7,15 @@ import {
 	type SimplifiedTrack
 } from '@spotify/web-api-ts-sdk';
 import { writable } from 'svelte/store';
-import {
-	PUBLIC_SPOTIFY_CLIENT_ID,
-	PUBLIC_DOMAIN
-} from '$env/static/public';
+import { env } from '$env/dynamic/public';
+// import {
+// 	PUBLIC_SPOTIFY_CLIENT_ID,
+// 	PUBLIC_DOMAIN
+// } from '$env/static/public';
 
-const domain = import.meta.env["VITE_PUBLIC_DOMAIN"] || PUBLIC_DOMAIN;
-const clientId = import.meta.env["VITE_PUBLIC_SPOTIFY_CLIENT_ID"] || PUBLIC_SPOTIFY_CLIENT_ID;
+const domain = import.meta.env['VITE_PUBLIC_DOMAIN'] || env['PUBLIC_DOMAIN'] || '';
+const clientId =
+	import.meta.env['VITE_PUBLIC_SPOTIFY_CLIENT_ID'] || env['PUBLIC_SPOTIFY_CLIENT_ID'] || '';
 
 export type UserAndPlaylists = User & {
 	playlists: Array<Playlist>;
@@ -22,10 +24,7 @@ export type UserAndPlaylists = User & {
 export const loading = writable(false);
 export const userDetails = writable<UserAndPlaylists | null>(null);
 
-let spotify: SpotifyApi = SpotifyApi.withUserAuthorization(
-	clientId,
-	`https://${domain}`
-);
+let spotify: SpotifyApi = SpotifyApi.withUserAuthorization(clientId, `https://${domain}`);
 
 export const userLogin = async () => {
 	loading.set(true);
