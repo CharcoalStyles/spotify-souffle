@@ -7,7 +7,9 @@
       "outputLocation": "build/static",
       "appBuildCommand": "npm run build",
       "run": "npm run dev",
-      "appDevserverUrl": "http://localhost:8080"
+      "appDevserverUrl": "http://localhost:8080",
+      "appName": "spotify-souffle-svelte",
+      "resourceGroup": "spotify-souffle-svelte-rg"
     }
   }
 }
