@@ -40,5 +40,6 @@ jobs:
         
     - name: build and deploy
       run: |
+        touch .env
         yarn build
         yarn deploy
