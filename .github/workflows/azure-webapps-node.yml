@@ -33,9 +33,10 @@ jobs:
         azure_static_web_apps_api_token: ${{ secrets.SWA_CLI_DEPLOYMENT_TOKEN }}
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         # Custom command for Oryx to run when building Azure Functions source code
-        api_build_command: "yarn build"
+        # api_build_command: "yarn build"
         # Directory location of the Azure Functions source code
         api_location: "build/server"
         # Directory location of the compiled application code after building
         output_location: "build/static"
         skip_deploy_on_missing_secrets: true
+        skip_app_build: true
